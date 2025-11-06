@@ -75,6 +75,22 @@ void GpoCore::write(int bit_value, int bit_pos) {
    io_write(base_addr, DATA_REG, wr_data);
 }
 
+
+//Blinking LED With Hardware
+//basically a copy from the GpoCore because that is using LED with slot 2. 
+BlinkCore::BlinkCore(uint32_t core_base_addr) {
+    base_addr = core_base_addr; 
+}
+
+BlinkCore::~BlinkCore() {
+}
+
+void BlinkCore::set_rate(int led_num, uint32_t interval_ms) {
+    io_write(base_addr, led_num, interval_ms);
+}
+
+
+
 /**********************************************************************
  * PwmCore
  **********************************************************************/
