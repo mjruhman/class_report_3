@@ -46,10 +46,18 @@ always_comb begin
     endcase
 end
 
-interval led0(.led_out(led[15]), .delay_ms(interval_reg[0]), .clk(clk), .reset(reset));
-interval led1(.led_out(led[14]), .delay_ms(interval_reg[1]), .clk(clk), .reset(reset));
-interval led2(.led_out(led[13]), .delay_ms(interval_reg[2]), .clk(clk), .reset(reset));
-interval led3(.led_out(led[12]), .delay_ms(interval_reg[3]), .clk(clk), .reset(reset));
+
+generate
+   genvar i;
+   for (i = 0; i < 16; i = i + 1) begin : gen_intervals
+        interval led_inst (
+            .led_out(led[i]),
+            .delay_ms(interval_reg[i]),
+            .clk(clk),
+            .reset(reset)
+        );
+    end
+endgenerate
 
 assign rd_data = 0;
 assign dout = led;
