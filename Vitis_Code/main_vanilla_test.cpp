@@ -74,18 +74,23 @@ void uart_check() {
    loop++;
 }
 
+void blink_led_check(BlinkCore *blink_led) {
+    blink_led->set_rate(0, 100);
+    blink_led->set_rate(1, 500);
+    blink_led->set_rate(2, 1000);
+    blink_led->set_rate(3, 2000);
+}
+
 // instantiate switch, led
-GpoCore led(get_slot_addr(BRIDGE_BASE, S2_LED));
-GpiCore sw(get_slot_addr(BRIDGE_BASE, S3_SW));
+//GpoCore led(get_slot_addr(BRIDGE_BASE, S2_LED));
+//GpiCore sw(get_slot_addr(BRIDGE_BASE, S3_SW));
+BlinkCore blink_led(get_slot_addr(BRIDGE_BASE , S4_USER));
 
 int main() {
 
    while (1) {
-      timer_check(&led);
-      led_check(&led, 16);
-      sw_check(&led, &sw);
-      uart_check();
-      debug("main - switch value / up time : ", sw.read(), now_ms());
+      blink_led_check(&blink_led);
    } //while
 } //main
+
 
