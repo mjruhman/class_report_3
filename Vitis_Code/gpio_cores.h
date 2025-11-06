@@ -112,6 +112,17 @@ private:
 };
 
 
+//Basically same as the GpoCore he used and added the set rate that is needed
+class BlinkCore {
+public:
+    BlinkCore(uint32_t core_base_addr);
+    ~BlinkCore();
+
+    void set_rate(int led_num, uint32_t interval_ms);
+
+private:
+    uint32_t base_addr;
+};
 /**********************************************************************
  * pwm core driver
  **********************************************************************/
