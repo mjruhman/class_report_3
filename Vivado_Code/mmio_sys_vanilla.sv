@@ -77,6 +77,7 @@ module mmio_sys_vanilla
     );
    //assign rd_data_array[1] = 32'h00000000;
 
+/*
    // slot 2: gpo 
    chu_gpo #(.W(N_LED)) gpo_slot2 
    (.clk(clk),
@@ -89,7 +90,8 @@ module mmio_sys_vanilla
     .wr_data(wr_data_array[`S2_LED]),
     .dout(led)
     );
-
+*/
+    
    // slot 3: gpi 
    chu_gpi #(.W(N_SW)) gpi_slot3 
    (.clk(clk),
@@ -101,6 +103,20 @@ module mmio_sys_vanilla
     .rd_data(rd_data_array[`S3_SW]),
     .wr_data(wr_data_array[`S3_SW]),
     .din(sw)
+    );
+    
+    
+    // slot 4: led
+    ruhman_led #(.W(N_LED)) led_slot4 
+    (.clk(clk),
+     .reset(reset),
+     .cs(cs_array[`S4_USER]),
+     .read(mem_rd_array[`S4_USER]),
+     .write(mem_wr_array[`S4_USER]),
+     .addr(reg_addr_array[`S4_USER]),
+     .rd_data(rd_data_array[`S4_USER]),
+     .wr_data(wr_data_array[`S4_USER]),
+     .dout(led)  
     );
     
    // assign 0's to all unused slot rd_data signals
