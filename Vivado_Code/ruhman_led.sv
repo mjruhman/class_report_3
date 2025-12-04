@@ -15,37 +15,48 @@ module ruhman_led
    );
    
 // everything above taken from chu_gpo but changed the width parameter to match what I want
-logic [15:0] interval_reg [0:3];
-logic [15:0] interval_reg_new [0:3];
+logic [15:0] interval_reg [0:15];
+logic [15:0] interval_reg_new [0:15];
 logic [15:0] led; 
 
 always_ff @(posedge(clk), posedge(reset)) begin
     if (reset) begin
-        interval_reg[0] <= 16'd0;
-        interval_reg[1] <= 16'd0;
-        interval_reg[2] <= 16'd0;
-        interval_reg[3] <= 16'd0;
+        for (int i = 0; i < 16; i++)
+            interval_reg[i] <= 16'd0;
     end
     
     
     // Check
     else if (cs && write) begin
-        interval_reg <= interval_reg_new;
+        for (int i = 0; i < 16; i++)
+            interval_reg[i] <= interval_reg_new[i];
     end
 end
 
 
 always_comb begin
-    interval_reg_new = interval_reg;
+    for (int i = 0; i < 16; i++)
+        interval_reg_new[i] = interval_reg[i];
     case (addr)
-        0: interval_reg_new[0] <= wr_data[15:0];
-        1: interval_reg_new[1] <= wr_data[15:0];
-        2: interval_reg_new[2] <= wr_data[15:0];
-        3: interval_reg_new[3] <= wr_data[15:0];
-        default: interval_reg_new[0] <= wr_data[15:0];
+        0: interval_reg_new[0] = wr_data[15:0];
+        1: interval_reg_new[1] = wr_data[15:0];
+        2: interval_reg_new[2] = wr_data[15:0];
+        3: interval_reg_new[3] = wr_data[15:0];
+        4: interval_reg_new[4] = wr_data[15:0];
+        5: interval_reg_new[5] = wr_data[15:0];
+        6: interval_reg_new[6] = wr_data[15:0];
+        7: interval_reg_new[7] = wr_data[15:0];
+        8: interval_reg_new[8] = wr_data[15:0];
+        9: interval_reg_new[9] = wr_data[15:0];
+        10: interval_reg_new[10] = wr_data[15:0];
+        11: interval_reg_new[11] = wr_data[15:0];
+        12: interval_reg_new[12] = wr_data[15:0];
+        13: interval_reg_new[13] = wr_data[15:0];
+        14: interval_reg_new[14] = wr_data[15:0];
+        15: interval_reg_new[15] = wr_data[15:0];
+        default: interval_reg_new[0] = wr_data[15:0];
     endcase
 end
-
 
 generate
    genvar i;
