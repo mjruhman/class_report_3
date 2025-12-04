@@ -1,12 +1,3 @@
-/*****************************************************************//**
- * @file main_vanilla_test.cpp
- *
- * @brief Basic test of 4 basic i/o cores
- *
- * @author p chu
- * @version v1.0: initial release
- *********************************************************************/
-
 //#define _DEBUG
 #include "chu_init.h"
 #include "gpio_cores.h"
@@ -79,6 +70,11 @@ void blink_led_check(BlinkCore *blink_led) {
     blink_led->set_rate(1, 500);
     blink_led->set_rate(2, 1000);
     blink_led->set_rate(3, 2000);
+    blink_led->set_rate(4, 100);
+    blink_led->set_rate(5, 500);
+    blink_led->set_rate(8, 200);
+    blink_led->set_rate(11, 200);
+    blink_led->set_rate(15, 200);
 }
 
 // instantiate switch, led
@@ -92,5 +88,6 @@ int main() {
       blink_led_check(&blink_led);
    } //while
 } //main
+
 
 
